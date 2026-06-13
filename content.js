@@ -34,15 +34,7 @@ window.LF_CONTENT = {
     }
   ],
   "music": [],
-  "photo": [
-    {
-      "no": "07",
-      "filename": "scan_1207.jpg",
-      "memo": "색이 많이 바랬음",
-      "date": "99.12.07",
-      "body": ""
-    }
-  ],
+  "photo": [],
   "links": [
     {
       "label": "YouTube",
