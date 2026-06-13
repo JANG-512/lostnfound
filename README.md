@@ -8,9 +8,13 @@ The first screen intentionally shows only `crt-loading.gif`, `Lost & Found`, and
 
 ## Editing Content
 
-Run `LostAndFoundWriter.command` on macOS to edit notice, diary, music, photo, and link data. The writer exports public data to `content.js` and stores the editable source vault at `private/lostfound-vault.enc`.
+Run `LostAndFoundWriter.command` on macOS to edit notice, diary, music, photo, and link data. The writer starts a local-only server and opens a browser editor at `http://127.0.0.1:5127/`.
 
-Use `Save encrypted vault + public content.js` to save locally. Use `Save & Publish to GitHub` to save, commit `content.js`, and push the update to GitHub.
+Use `Save public` to update `content.js`. Use `Save & Publish` to save, commit `content.js`, and push the update to GitHub. Keep the Terminal window open while editing; closing it stops the local writer server.
+
+The optional vault buttons store an encrypted editable copy at `private/lostfound-vault.enc`.
+
+Music entries can use uploaded audio files or embeds. In the writer, upload mp3, m4a, wav, ogg, flac, or aac files from the music section to copy them into `assets/audio/`, or paste a SoundCloud/YouTube URL into `embedUrl`.
 
 The `private/` folder is ignored by git. Keep the passphrase somewhere safe; it cannot be recovered from the site files.
 

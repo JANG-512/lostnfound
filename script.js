@@ -25,6 +25,122 @@ function linkCell(label, href = "#") {
   return { td, anchor };
 }
 
+function postTitle(section, item) {
+  if (section === "notice") return item.subject;
+  if (section === "diary") return item.title;
+  if (section === "music") return item.file;
+  if (section === "photo") return item.filename;
+  return "";
+}
+
+function postMeta(section, item) {
+  if (section === "notice") return `${item.id || ""} / ${item.date || ""}`;
+  if (section === "diary") return `${item.weather || ""} / ${item.date || ""}`;
+  if (section === "music") return `${item.time || ""} / ${item.state || ""}`;
+  if (section === "photo") return `${item.memo || ""} / ${item.date || ""}`;
+  return "";
+}
+
+function youtubeEmbedUrl(url) {
+  try {
+    const parsed = new URL(url);
+    let id = "";
+    if (parsed.hostname.includes("youtu.be")) {
+      id = parsed.pathname.slice(1).split("/")[0];
+    } else if (parsed.pathname.startsWith("/embed/")) {
+      id = parsed.pathname.split("/")[2];
+    } else {
+      id = parsed.searchParams.get("v") || "";
+    }
+    return id ? `https://www.youtube-nocookie.com/embed/${id}` : "";
+  } catch (_error) {
+    return "";
+  }
+}
+
+function soundcloudEmbedUrl(url) {
+  return `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&color=%23000080&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
+}
+
+function embedType(item) {
+  const explicit = String(item.embedType || "").toLowerCase();
+  if (explicit) return explicit;
+  const url = String(item.embedUrl || "");
+  if (url.includes("soundcloud.com")) return "soundcloud";
+  if (url.includes("youtube.com") || url.includes("youtu.be")) return "youtube";
+  return "";
+}
+
+function musicPlayer(item) {
+  const wrap = document.createElement("div");
+  wrap.className = "music-player";
+
+  if (item.audioSrc) {
+    const audio = document.createElement("audio");
+    audio.controls = true;
+    audio.preload = "metadata";
+    audio.src = item.audioSrc;
+    wrap.append(audio);
+  }
+
+  if (item.embedUrl) {
+    const type = embedType(item);
+    const iframe = document.createElement("iframe");
+    iframe.loading = "lazy";
+    iframe.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.title = item.file || "music embed";
+
+    if (type === "soundcloud") {
+      iframe.src = soundcloudEmbedUrl(item.embedUrl);
+      iframe.className = "soundcloud-embed";
+      wrap.append(iframe);
+    } else if (type === "youtube") {
+      const src = youtubeEmbedUrl(item.embedUrl);
+      if (src) {
+        iframe.src = src;
+        iframe.className = "youtube-embed";
+        wrap.append(iframe);
+      }
+    }
+  }
+
+  return wrap.childNodes.length ? wrap : null;
+}
+
+function openPost(section, item) {
+  const target = document.querySelector(`#${section}Post`);
+  if (!target) return;
+  target.replaceChildren();
+  target.classList.remove("hidden");
+
+  const title = document.createElement("h3");
+  title.append(text(postTitle(section, item)));
+
+  const meta = document.createElement("div");
+  meta.className = "post-meta";
+  meta.append(text(postMeta(section, item)));
+
+  const body = document.createElement("p");
+  body.append(text(item.body || "아직 본문이 없습니다."));
+
+  target.append(title, meta);
+  if (section === "music") {
+    const player = musicPlayer(item);
+    if (player) target.append(player);
+  }
+  target.append(body);
+}
+
+function readableLinkCell(section, item, label) {
+  const linked = linkCell(label);
+  linked.anchor.addEventListener("click", (event) => {
+    event.preventDefault();
+    openPost(section, item);
+  });
+  return linked;
+}
+
 function appendRows(targetId, rows, buildRow) {
   const target = document.querySelector(`#${targetId}`);
   if (!target) return;
@@ -35,7 +151,7 @@ function appendRows(targetId, rows, buildRow) {
 function renderContent() {
   appendRows("noticeRows", content.notice || [], (item) => {
     const tr = document.createElement("tr");
-    const linked = linkCell(item.subject);
+    const linked = readableLinkCell("notice", item, item.subject);
     if (item.isNew) {
       linked.td.append(" ");
       const badge = document.createElement("span");
@@ -49,19 +165,19 @@ function renderContent() {
 
   appendRows("diaryRows", content.diary || [], (item) => {
     const tr = document.createElement("tr");
-    tr.append(cell(item.no), linkCell(item.title).td, cell(item.weather), cell(item.date));
+    tr.append(cell(item.no), readableLinkCell("diary", item, item.title).td, cell(item.weather), cell(item.date));
     return tr;
   });
 
   appendRows("musicRows", content.music || [], (item) => {
     const tr = document.createElement("tr");
-    tr.append(cell(item.file), cell(item.memo), cell(item.time), cell(item.state));
+    tr.append(readableLinkCell("music", item, item.file).td, cell(item.memo), cell(item.time), cell(item.state));
     return tr;
   });
 
   appendRows("photoRows", content.photo || [], (item) => {
     const tr = document.createElement("tr");
-    tr.append(cell(item.no), linkCell(item.filename).td, cell(item.memo), cell(item.date));
+    tr.append(cell(item.no), readableLinkCell("photo", item, item.filename).td, cell(item.memo), cell(item.date));
     return tr;
   });
 

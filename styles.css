@@ -413,6 +413,65 @@ td:first-child {
   text-align: center;
 }
 
+.post-view {
+  margin-top: 10px;
+  border: 2px inset #bfbfbf;
+  background: #fffef0;
+}
+
+.post-view h3 {
+  margin: 0;
+  padding: 7px 8px;
+  border-bottom: 1px solid #c8c8a0;
+  background: #ffffcc;
+  color: #000080;
+  font-size: 14px;
+}
+
+.post-meta {
+  padding: 5px 8px;
+  border-bottom: 1px dotted #aaa;
+  color: #666;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+}
+
+.music-player {
+  display: grid;
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px dotted #aaa;
+  background: #f7f7ff;
+}
+
+.music-player audio,
+.music-player iframe {
+  display: block;
+  width: 100%;
+  border: 1px solid #aaa;
+  background: #000;
+}
+
+.music-player audio {
+  height: 34px;
+}
+
+.soundcloud-embed {
+  height: 166px;
+}
+
+.youtube-embed {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
+.post-view p {
+  min-height: 96px;
+  margin: 0;
+  padding: 10px 8px;
+  white-space: pre-wrap;
+}
+
 .guest-row {
   padding: 8px;
   border-bottom: 1px dotted #aaa;
