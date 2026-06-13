@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import subprocess
 import tempfile
+from datetime import datetime
 from pathlib import Path
 from tkinter import BOTH, END, LEFT, RIGHT, X, Button, Entry, Frame, Label, Tk, messagebox
 from tkinter.scrolledtext import ScrolledText
@@ -110,6 +111,27 @@ def write_content_js(data: dict) -> None:
     CONTENT_PATH.write_text(f"window.LF_CONTENT = {pretty};\n", encoding="utf-8")
 
 
+def run_git(args: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+
+
+def has_public_content_changes() -> bool:
+    result = subprocess.run(
+        ["git", "status", "--short", "--", str(CONTENT_PATH.relative_to(ROOT))],
+        cwd=ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    return bool(result.stdout.strip())
+
+
 class WriterApp:
     def __init__(self) -> None:
         self.root = Tk()
@@ -129,6 +151,7 @@ class WriterApp:
 
         bottom = Frame(self.root)
         bottom.pack(fill=X, padx=10, pady=8)
+        Button(bottom, text="Save & Publish to GitHub", command=self.save_and_publish).pack(side=RIGHT)
         Button(bottom, text="Save encrypted vault + public content.js", command=self.save_all).pack(side=RIGHT)
         Button(bottom, text="Validate JSON", command=self.validate).pack(side=RIGHT, padx=6)
 
@@ -169,17 +192,45 @@ class WriterApp:
             messagebox.showerror("Invalid JSON", str(exc))
 
     def save_all(self) -> None:
+        self.save_files(show_success=True)
+
+    def save_files(self, show_success: bool = False) -> bool:
         phrase = self.passphrase.get()
         if not phrase:
             messagebox.showwarning("Missing passphrase", "Enter a passphrase to encrypt the private vault.")
-            return
+            return False
         try:
             data = self.current_data()
             write_content_js(data)
             encrypt_vault(data, phrase)
-            messagebox.showinfo("Saved", "Updated content.js and encrypted private/lostfound-vault.enc.")
+            if show_success:
+                messagebox.showinfo("Saved", "Updated content.js and encrypted private/lostfound-vault.enc.")
+            return True
         except Exception as exc:
             messagebox.showerror("Save failed", str(exc))
+            return False
+
+    def save_and_publish(self) -> None:
+        proceed = messagebox.askyesno(
+            "Publish to GitHub",
+            "This will save content.js, commit the public content change, and push to GitHub. Continue?",
+        )
+        if not proceed:
+            return
+        if not self.save_files(show_success=False):
+            return
+        try:
+            if not has_public_content_changes():
+                messagebox.showinfo("No public changes", "content.js did not change, so there is nothing to publish.")
+                return
+            run_git(["add", "content.js"])
+            stamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+            run_git(["commit", "-m", f"Update site content {stamp}"])
+            run_git(["push"])
+            messagebox.showinfo("Published", "Committed content.js and pushed to GitHub.")
+        except subprocess.CalledProcessError as exc:
+            detail = exc.stderr.strip() or exc.stdout.strip() or str(exc)
+            messagebox.showerror("Publish failed", detail)
 
     def run(self) -> None:
         self.root.mainloop()
