@@ -487,11 +487,103 @@ td:first-child {
   font-size: 12px;
 }
 
-.guestbook-widget {
+.guestbook-form {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 6px;
   margin-top: 10px;
-  padding: 6px;
+  padding: 8px;
   border: 2px inset #bfbfbf;
+  background: #f7f7ff;
+}
+
+.guestbook-form label {
+  display: grid;
+  gap: 3px;
+  color: #000080;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.guestbook-form input,
+.guestbook-form textarea {
+  min-width: 0;
+  border: 1px inset #aaa;
   background: #fff;
+  font: inherit;
+}
+
+.guestbook-form textarea {
+  min-height: 58px;
+  resize: vertical;
+}
+
+.guestbook-form button {
+  align-self: end;
+  min-height: 26px;
+  padding: 3px 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #fff #777 #777 #fff;
+  background: #eeeeee;
+}
+
+.guestbook-form button:disabled {
+  color: #777;
+  cursor: not-allowed;
+}
+
+.guestbook-trap {
+  display: none;
+}
+
+.guestbook-status {
+  margin-top: 8px;
+  padding: 5px 7px;
+  border: 1px dotted #aaa;
+  background: #eef8ee;
+  color: #154215;
+  font-size: 12px;
+}
+
+.guestbook-status.error {
+  background: #fff0f0;
+  color: #900;
+}
+
+.guestbook-list {
+  margin-top: 8px;
+  border: 1px solid #bfbfbf;
+  background: #fff;
+}
+
+.guestbook-entry,
+.guestbook-empty {
+  padding: 8px;
+  border-bottom: 1px dotted #aaa;
+}
+
+.guestbook-entry:last-child,
+.guestbook-empty:last-child {
+  border-bottom: 0;
+}
+
+.guestbook-entry-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #000080;
+}
+
+.guestbook-entry-head span {
+  color: #777;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+}
+
+.guestbook-entry p {
+  margin: 5px 0 0;
+  white-space: pre-wrap;
 }
 
 .link-title {
@@ -551,6 +643,10 @@ td:first-child {
 
   .right {
     order: 3;
+  }
+
+  .guestbook-form {
+    grid-template-columns: 1fr;
   }
 
   .status-line {

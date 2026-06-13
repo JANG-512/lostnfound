@@ -132,19 +132,16 @@ SYSOP MESSAGE: 분실물은 새벽마다 갱신됩니다.
           <div class="board-panel" id="guestbook" role="tabpanel">
             <div class="guestbook-head">
               <b>방명록 / GUESTBOOK</b>
-              <span>GitHub 계정으로 흔적을 남길 수 있습니다.</span>
-              <a href="https://github.com/JANG-512/lostnfound/issues/1" target="_blank" rel="noopener">GitHub에서 방명록 열기</a>
+              <span>이곳에 남긴 흔적은 실시간으로 갱신됩니다.</span>
             </div>
-            <div class="guestbook-widget">
-              <script src="https://utteranc.es/client.js"
-                repo="JANG-512/lostnfound"
-                issue-number="1"
-                label="guestbook"
-                theme="github-light"
-                crossorigin="anonymous"
-                async>
-              </script>
-            </div>
+            <form class="guestbook-form" id="guestbookForm">
+              <label>name <input id="guestName" type="text" maxlength="24" autocomplete="name" placeholder="guest"></label>
+              <label>message <textarea id="guestMessage" maxlength="500" rows="4" placeholder="남기고 싶은 문장"></textarea></label>
+              <input class="guestbook-trap" id="guestWebsite" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <button type="submit">write</button>
+            </form>
+            <div class="guestbook-status" id="guestbookStatus">loading guestbook...</div>
+            <div class="guestbook-list" id="guestbookList" aria-live="polite"></div>
           </div>
 
           <div class="board-panel" id="links" role="tabpanel">
@@ -175,6 +172,8 @@ SYSOP MESSAGE: 분실물은 새벽마다 갱신됩니다.
       </footer>
     </div>
     <script src="content.js"></script>
+    <script src="guestbook-config.js"></script>
     <script src="script.js"></script>
+    <script type="module" src="guestbook.js"></script>
   </body>
 </html>

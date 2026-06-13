@@ -16,7 +16,27 @@ The optional vault buttons store an encrypted editable copy at `private/lostfoun
 
 Music entries can use uploaded audio files or embeds. In the writer, upload mp3, m4a, wav, ogg, flac, or aac files from the music section to copy them into `assets/audio/`, or paste a SoundCloud/YouTube URL into `embedUrl`.
 
-The guestbook uses utterances and stores visitor comments in GitHub issue #1. If the embedded guestbook does not load, install the utterances GitHub App for this repository or use the "GitHub에서 방명록 열기" link on the page.
+The guestbook is built into the site and uses Firebase Firestore for realtime storage. Create a Firebase web app, enable Firestore, then copy the web app config into `guestbook-config.js` and set `enabled: true`.
+
+Suggested Firestore rules for a public guestbook:
+
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /guestbook/{entry} {
+      allow read: if true;
+      allow create: if
+        request.resource.data.keys().hasOnly(['name', 'message', 'createdAt']) &&
+        request.resource.data.name is string &&
+        request.resource.data.name.size() <= 24 &&
+        request.resource.data.message is string &&
+        request.resource.data.message.size() > 0 &&
+        request.resource.data.message.size() <= 500;
+    }
+  }
+}
+```
 
 The `private/` folder is ignored by git. Keep the passphrase somewhere safe; it cannot be recovered from the site files.
 
