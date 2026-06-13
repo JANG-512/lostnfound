@@ -29,10 +29,13 @@ service cloud.firestore {
       allow create: if
         request.resource.data.keys().hasOnly(['name', 'message', 'createdAt']) &&
         request.resource.data.name is string &&
+        request.resource.data.name.size() > 0 &&
         request.resource.data.name.size() <= 24 &&
         request.resource.data.message is string &&
         request.resource.data.message.size() > 0 &&
-        request.resource.data.message.size() <= 500;
+        request.resource.data.message.size() <= 500 &&
+        request.resource.data.createdAt is timestamp;
+      allow update, delete: if false;
     }
   }
 }
