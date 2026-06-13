@@ -226,14 +226,6 @@ tabButtons.forEach((button) => {
   });
 });
 
-document.querySelector(".guest-form button").addEventListener("click", () => {
-  const rows = document.querySelector("#guestbook");
-  const notice = document.createElement("div");
-  notice.className = "guest-row";
-  notice.innerHTML = "<b>guest</b> 저장되지 않았습니다. 그래도 흔적은 남았습니다. <span>now</span>";
-  rows.insertBefore(notice, rows.querySelector(".guest-form"));
-});
-
 renderContent();
 
 if (window.location.hash === "#main") {

@@ -200,8 +200,7 @@ h2 {
 }
 
 .mini-nav a,
-.board-tabs button,
-.guest-form button {
+.board-tabs button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -222,8 +221,7 @@ h2 {
 }
 
 .mini-nav a:active,
-.board-tabs button.active,
-.guest-form button:active {
+.board-tabs button.active {
   border-color: #777 #fff #fff #777;
   background: #ddd;
 }
@@ -472,9 +470,27 @@ td:first-child {
   white-space: pre-wrap;
 }
 
-.guest-row {
+.guestbook-head {
+  display: grid;
+  gap: 3px;
   padding: 8px;
-  border-bottom: 1px dotted #aaa;
+  border: 1px dotted #aaa;
+  background: #fffef0;
+}
+
+.guestbook-head b {
+  color: #000080;
+}
+
+.guestbook-head span {
+  color: #666;
+  font-size: 12px;
+}
+
+.guestbook-widget {
+  margin-top: 10px;
+  padding: 6px;
+  border: 2px inset #bfbfbf;
   background: #fff;
 }
 
@@ -496,30 +512,6 @@ td:first-child {
 
 .login-card p {
   margin: 0 0 3px;
-}
-
-.guest-row span {
-  float: right;
-  color: #777;
-}
-
-.guest-form {
-  display: grid;
-  grid-template-columns: 100px 1fr auto;
-  gap: 5px;
-  margin-top: 9px;
-}
-
-.guest-form label {
-  display: grid;
-  gap: 2px;
-}
-
-.guest-form input {
-  min-width: 0;
-  height: 22px;
-  border: 1px inset #aaa;
-  background: #fff;
 }
 
 .status-line {
@@ -559,10 +551,6 @@ td:first-child {
 
   .right {
     order: 3;
-  }
-
-  .guest-form {
-    grid-template-columns: 1fr;
   }
 
   .status-line {

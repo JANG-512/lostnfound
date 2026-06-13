@@ -16,6 +16,8 @@ The optional vault buttons store an encrypted editable copy at `private/lostfoun
 
 Music entries can use uploaded audio files or embeds. In the writer, upload mp3, m4a, wav, ogg, flac, or aac files from the music section to copy them into `assets/audio/`, or paste a SoundCloud/YouTube URL into `embedUrl`.
 
+The guestbook uses utterances and stores visitor comments in GitHub issue #1. If the embedded guestbook does not load, install the utterances GitHub App for this repository or use the "GitHub에서 방명록 열기" link on the page.
+
 The `private/` folder is ignored by git. Keep the passphrase somewhere safe; it cannot be recovered from the site files.
 
 ## Publishing

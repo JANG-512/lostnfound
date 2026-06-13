@@ -130,13 +130,21 @@ SYSOP MESSAGE: 분실물은 새벽마다 갱신됩니다.
           </div>
 
           <div class="board-panel" id="guestbook" role="tabpanel">
-            <div class="guest-row"><b>익명</b> 오래된 홈페이지 냄새가 납니다. <span>1999.12.07</span></div>
-            <div class="guest-row"><b>hidden</b> 아직 다 열리지 않았습니다. <span>2000.01.01</span></div>
-            <form class="guest-form">
-              <label>name <input type="text" value="guest"></label>
-              <label>message <input type="text" value="남기고 싶은 문장"></label>
-              <button type="button">write</button>
-            </form>
+            <div class="guestbook-head">
+              <b>방명록 / GUESTBOOK</b>
+              <span>GitHub 계정으로 흔적을 남길 수 있습니다.</span>
+              <a href="https://github.com/JANG-512/lostnfound/issues/1" target="_blank" rel="noopener">GitHub에서 방명록 열기</a>
+            </div>
+            <div class="guestbook-widget">
+              <script src="https://utteranc.es/client.js"
+                repo="JANG-512/lostnfound"
+                issue-number="1"
+                label="guestbook"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+              </script>
+            </div>
           </div>
 
           <div class="board-panel" id="links" role="tabpanel">
