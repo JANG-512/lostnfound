@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lost &amp; Found</title>
+    <meta name="description" content="Lost & Found, since 1999.12.07">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <section class="splash" id="splash" aria-label="entrance">
+      <button class="splash-gif" id="enterSite" type="button" aria-label="enter Lost and Found">
+        <img src="assets/crt-loading.gif" alt="CRT monitor loading">
+      </button>
+      <h1>Lost &amp; Found</h1>
+      <div class="today-counter" aria-label="today counter">
+        <span>Today</span>
+        <strong>0017</strong>
+        <span>Total</span>
+        <strong>19991207</strong>
+      </div>
+    </section>
+
+    <div class="page-shell hidden" id="site">
+      <div class="signal-banner">
+        <span>L&amp;F NODE 512</span>
+        <span>carrier detected</span>
+        <span>memory packet waiting</span>
+      </div>
+
+      <header class="top-frame">
+        <div>
+          <p class="since">Since 1999.12.07</p>
+          <h2>Lost &amp; Found</h2>
+        </div>
+        <div class="counter" aria-label="visitor counter">
+          <span>today</span><strong>0017</strong><span>total</span><strong>19991207</strong>
+        </div>
+      </header>
+
+      <nav class="mini-nav" aria-label="main menu">
+        <span class="arrow">▶</span><a href="#notice" data-board="notice">공지사항</a>
+        <span class="arrow">▶</span><a href="#diary" data-board="diary">일기장</a>
+        <span class="arrow">▶</span><a href="#music" data-board="music">자료실</a>
+        <span class="arrow">▶</span><a href="#photo" data-board="photo">사진첩</a>
+        <span class="arrow">▶</span><a href="#guestbook" data-board="guestbook">방명록</a>
+        <span class="arrow">▶</span><a href="#links" data-board="links">링크</a>
+      </nav>
+
+      <section class="visit-strip">
+        <span class="eye">◉</span>
+        접속 기록이 남았습니다. NODE <b>0017</b> / ARCHIVE <b>19991207</b>
+      </section>
+
+      <main class="home-grid">
+        <aside class="side-box">
+          <div class="box-title">L&amp;F SYSOP</div>
+          <p class="small-note">아주 오래 전에 닫아둔 방입니다.</p>
+          <ul class="plain-list">
+            <li>ID: hidden</li>
+            <li>MODEM: 56K</li>
+            <li>ANSI: ON</li>
+          </ul>
+          <div class="box-title sub">update</div>
+          <ol class="update-list">
+            <li><span class="new">new</span> board 복구</li>
+            <li>music 폴더 생성</li>
+            <li>사진 일부 손상</li>
+          </ol>
+          <div class="mini-banner yellow">L&amp;F dial-up archive</div>
+        </aside>
+
+        <section class="window" aria-label="old web board">
+          <div class="window-bar">
+            <span>L&amp;F-BBS / MAIN BOARD</span>
+            <button id="returnSplash" type="button" aria-label="back">x</button>
+          </div>
+          <div class="bbs-screen" aria-label="pc communication terminal">
+            <pre>
+CONNECT 57600/L&amp;F-NET
+ID: GUEST_0017
+LAST CALL: 1999.12.07  23:59
+WELCOME TO LOST &amp; FOUND PRIVATE BBS
+SYSOP MESSAGE: 분실물은 새벽마다 갱신됩니다.
+            </pre>
+          </div>
+          <div class="board-tabs" role="tablist" aria-label="boards">
+            <button class="active" type="button" data-board="notice">1.공지</button>
+            <button type="button" data-board="diary">2.일기</button>
+            <button type="button" data-board="music">3.자료</button>
+            <button type="button" data-board="photo">4.사진</button>
+            <button type="button" data-board="guestbook">5.방명록</button>
+            <button type="button" data-board="links">6.링크</button>
+          </div>
+
+          <div class="board-panel active" id="notice" role="tabpanel">
+            <table>
+              <caption>1. 공지사항 / NOTICE</caption>
+              <thead><tr><th>no</th><th>subject</th><th>id</th><th>date</th></tr></thead>
+              <tbody id="noticeRows"></tbody>
+            </table>
+          </div>
+
+          <div class="board-panel" id="diary" role="tabpanel">
+            <table>
+              <caption>2. 개인 일기장 / DIARY</caption>
+              <thead><tr><th>no</th><th>title</th><th>weather</th><th>date</th></tr></thead>
+              <tbody id="diaryRows"></tbody>
+            </table>
+          </div>
+
+          <div class="board-panel" id="music" role="tabpanel">
+            <table>
+              <caption>3. 공개 자료실 / MUSIC DATA</caption>
+              <thead><tr><th>file</th><th>memo</th><th>time</th><th>state</th></tr></thead>
+              <tbody id="musicRows"></tbody>
+            </table>
+          </div>
+
+          <div class="board-panel" id="photo" role="tabpanel">
+            <table>
+              <caption>4. 사진 자료실 / PHOTO</caption>
+              <thead><tr><th>no</th><th>filename</th><th>memo</th><th>date</th></tr></thead>
+              <tbody id="photoRows"></tbody>
+            </table>
+          </div>
+
+          <div class="board-panel" id="guestbook" role="tabpanel">
+            <div class="guest-row"><b>익명</b> 오래된 홈페이지 냄새가 납니다. <span>1999.12.07</span></div>
+            <div class="guest-row"><b>hidden</b> 아직 다 열리지 않았습니다. <span>2000.01.01</span></div>
+            <form class="guest-form">
+              <label>name <input type="text" value="guest"></label>
+              <label>message <input type="text" value="남기고 싶은 문장"></label>
+              <button type="button">write</button>
+            </form>
+          </div>
+
+          <div class="board-panel" id="links" role="tabpanel">
+            <div class="link-title">Lost &amp; Found Web Ring</div>
+            <ul class="link-list" id="linkRows"></ul>
+          </div>
+        </section>
+
+        <aside class="side-box right">
+          <div class="box-title">접속자 정보</div>
+          <div class="login-card">
+            <p>GUEST_0017</p>
+            <p>point: 000</p>
+            <p>mail: 0</p>
+          </div>
+          <div class="box-title sub">memo</div>
+          <p class="memo">
+            찾은 것과 잃어버린 것 사이에는 아주 작은 소리가 남아있다.
+          </p>
+          <div class="box-title sub">now</div>
+          <p class="small-note">loading circle never ends.</p>
+        </aside>
+      </main>
+
+      <footer class="status-line">
+        <span>optimized for midnight monitors / dotum or gulim</span>
+        <span>last packet: 1999.12.07 / disconnect gently</span>
+      </footer>
+    </div>
+    <script src="content.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
