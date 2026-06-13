@@ -14,7 +14,7 @@ window.LF_CONTENT = {
       "id": "node512",
       "date": "99.12.01",
       "isNew": true,
-      "body": "끊어진 신호를 그대로 보관합니다.\n\n언젠가 같은 번호로 다시 접속될지도 모릅니다."
+      "body": "수집 중입니다."
     }
   ],
   "diary": [
@@ -33,25 +33,14 @@ window.LF_CONTENT = {
       "body": "찾은 것과 잃어버린 것 사이에는 아주 작은 소리가 남아있다."
     }
   ],
-  "music": [
-    {
-      "file": "readme.txt",
-      "memo": "이곳에 트랙 정보를 넣어주세요.",
-      "time": "00:00",
-      "state": "open",
-      "audioSrc": "",
-      "embedType": "",
-      "embedUrl": "",
-      "body": "자료실 항목의 설명을 이곳에 적습니다.\n\n트랙 메모, 공개 예정 파일, 링크 안내 같은 내용을 넣을 수 있습니다."
-    }
-  ],
+  "music": [],
   "photo": [
     {
       "no": "07",
       "filename": "scan_1207.jpg",
       "memo": "색이 많이 바랬음",
       "date": "99.12.07",
-      "body": "사진에 남은 빛이 거의 사라졌지만 날짜만은 선명하게 남아있다."
+      "body": ""
     }
   ],
   "links": [
