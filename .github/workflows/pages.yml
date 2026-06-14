@@ -25,6 +25,22 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Build guestbook config
+        env:
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+        run: |
+          cat > guestbook-config.js <<EOF
+          window.LF_GUESTBOOK_CONFIG = {
+            enabled: true,
+            firebase: {
+              apiKey: "${FIREBASE_API_KEY}",
+              authDomain: "lostnfound-guestbook.firebaseapp.com",
+              projectId: "lostnfound-guestbook",
+              appId: "1:410324090575:web:1d26372ba7d0488f7c81ba"
+            },
+            collection: "guestbook"
+          };
+          EOF
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

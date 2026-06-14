@@ -16,7 +16,7 @@ The optional vault buttons store an encrypted editable copy at `private/lostfoun
 
 Music entries can use uploaded audio files or embeds. In the writer, upload mp3, m4a, wav, ogg, flac, or aac files from the music section to copy them into `assets/audio/`, or paste a SoundCloud/YouTube URL into `embedUrl`.
 
-The guestbook is built into the site and uses Firebase Firestore for realtime storage. Create a Firebase web app, enable Firestore, then copy the web app config into `guestbook-config.js` and set `enabled: true`.
+The guestbook is built into the site and uses Firebase Firestore for realtime storage. The public source keeps `guestbook-config.js` disabled; GitHub Pages generates the live config during deploy from the `FIREBASE_API_KEY` repository secret.
 
 Suggested Firestore rules for a public guestbook:
 
